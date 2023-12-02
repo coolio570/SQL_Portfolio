@@ -14,9 +14,9 @@ This dataset provides information about country names along with their ISO 3166-
 
 ## Files
 
-- **countries.csv:** Contains country names, ISO 3166-1 alpha-2 codes, and ISO 3166-1 alpha-3 codes.
+- **countries.csv**Contains country names, ISO 3166-1 alpha-2 codes, and ISO 3166-1 alpha-3 codes.
 
-## Questions
+Questions
 
 1. **Easy:** Retrieve all the countries along with their alpha-2 codes.
    
@@ -29,8 +29,6 @@ This dataset provides information about country names along with their ISO 3166-
 5. **Advanced:** Count the total number of countries in the dataset.
 
 6. **Advanced:** Find the country with the longest name.
-
-7. **Advanced:** Retrieve the top 5 countries with the shortest alpha-2 codes.
 
 ## Usage
 
