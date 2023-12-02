@@ -4,13 +4,19 @@
 
 ## Overview
 
-This dataset provides information about country names along with their ISO 3166-1 alpha-2 and alpha-3 codes. The ISO 3166-1 standard is widely used for the representation of country names and their subdivisions. The dataset includes three sets of country codes:
+Hello, and thank you for visiting! Within this repository, you'll find samples of SQL code that I've crafted for individual projects, as well as during my exploration of SQL, machine learning, and various data analytics courses. Highlighted below are some noteworthy projects, along with data visualizations crafted using Tableau. Feel free to explore, and don't hesitate to reach out with any feedback or questions you may have.
 
-1. **ISO 3166-1 alpha-2:** Two-letter country codes, widely used for Internet country code top-level domains.
 
-2. **ISO 3166-1 alpha-3:** Three-letter country codes, offering better visual association with country names compared to alpha-2 codes.
 
-3. **ISO 3166-1 numeric:** Three-digit country codes identical to those maintained by the United Nations Statistics Division, useful for systems using non-Latin scripts.
+
+
+1. This dataset provides information about country names along with their ISO 3166-1 alpha-2 and alpha-3 codes. The ISO 3166-1 standard is widely used for the representation of country names and their subdivisions. The dataset includes three sets of country codes:
+
+**ISO 3166-1 alpha-2:** Two-letter country codes, widely used for Internet country code top-level domains.
+
+ **ISO 3166-1 alpha-3:** Three-letter country codes, offering better visual association with country names compared to alpha-2 codes.
+
+**ISO 3166-1 numeric:** Three-digit country codes identical to those maintained by the United Nations Statistics Division, useful for systems using non-Latin scripts.
 
 ## Files
 
