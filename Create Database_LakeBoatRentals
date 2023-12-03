@@ -1,0 +1,357 @@
+--Creation of Boat Information Table--
+CREATE TABLE BoatInformation
+(
+    BoatNumber VARCHAR(180) PRIMARY KEY,
+    BoatType VARCHAR(140),
+    RentalRatePerHour DECIMAL(4,2) NOT NULL,
+    Quantity INT CHECK (Available > = 0),
+    Available INT CHECK (Available > = 0),
+    BookedInUse INT CHECK (BookedInUse > = 0)
+)
+
+--Creation of Customer Information Table--
+CREATE TABLE CustomerInformation
+(
+    CustomerID NUMBER PRIMARY KEY, 
+    CustomerName VARCHAR (50), 
+    CustomerAddress VARCHAR (250),
+    CustomerMobile VARCHAR (15)
+)
+--Creation of Rental Information Table
+CREATE TABLE RentalInformattion
+(
+    RentalReferenceNumber CHAR(5),
+    DateOfRental DATE,
+    StartTime TIMESTAMP(0),
+    NumberOfHoursBooked INT FLOAT (NumberOfHoursBooked > 0 AND NumberOfHoursBooked IS NOT NULL),
+    EndTime TIMESTAMP(0),
+    BoatNumber VARCHAR (180),
+    CustomerID NUMBER
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    PRIMARY KEY (RentalReferenceNumber,BoatNumber) -- RentalReferenceNumber and BoatNumber together form a unique identifier
+)
+    --Note - RentalAmount column has been dropped, as it can be calculated from the other information in the table. --
+
+
+--Inserting Data --
+
+--CustomerID Sequence is to be created to ensure each value is unique moving forward-- 
+
+CREATE SEQUENCE CustomerID_Seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE; 
+
+--Inserting Data Customer Information Table, the following was put in individually to ensure data integrity as it was only a small data set. 
+
+INSERT INTO CustomerInformation (CustomerID, CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Ms.Amy', 'Blackpool FY11DH', '0757772227')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Ms.Venus', 'Leeds LS11LZ', '0741585709')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Mr.Mathew', 'London HA90GG''0740498733')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Ms.Susan', 'Sheffield S11AD', '075678654')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Mr.Gonzalez', 'Hyde Manchester M126JS', '0744197402')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Ms.Rosy', 'Birmingham B440AX', '0747696561')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Mr.Judah', 'Bristol BS345BA', '0747969755')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Mr.Kemiln', 'Rochdale Machester BL96TP', '0749562842')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Mr.Hogan', 'Warrington WA11DG', '0749461765')
+
+INSERT INTO CustomerInformation (CustomerID,CustomerName, CustomerAddress, CustomerMobile)
+VALUES (CustomerID_Seq.NEXTVAL, 'Mr.Patrick', 'Leeds LS257DF', '0748779889')
+
+
+--Rentalnformation Table-- 
+
+
+--Inserting Data Into RentalInformation Table-- 
+
+
+--3 boats were taken out by the same person SUP02, SUP03, SUP04 therefore this is using the same reference number B0209--
+
+INSERT ALL
+    INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+    VALUES ('B0209', '11', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 11:30 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 12:30 AM', 'YYYY-MM--DD HH:MI AM'), 'SUP02')
+
+    INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+    VALUES ('B0209', '11', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 11:30 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 12:30 AM', 'YYYY-MM--DD HH:MI AM'), 'SUP03')
+
+    INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+    VALUES ('B0209', '11', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 11:30 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 12:30 AM', 'YYYY-MM--DD HH:MI AM'), 'SUP04')
+SELECT * FROM DUAL; 
+
+
+--2 boats were taken out by the same person KS01 & KS04 therefore this is using the same reference number B0202--
+
+INSERT ALL
+    INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+    VALUES ('B0202', '4', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 09:30 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 10:30 AM', 'YYYY-MM--DD HH:MI AM'), 'KS01')
+
+    INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+    VALUES ('B0202', '4', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 09:30 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 10:30 AM', 'YYYY-MM--DD HH:MI AM'), 'KS04')
+SELECT * FROM DUAL; 
+
+--2 boats were taken out by the same person KS02 & KS03 therefore this is using the same reference number B0204--
+
+INSERT ALL
+    INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+    VALUES ('B0204', '6', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 10:00 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 11:00 AM', 'YYYY-MM--DD HH:MI AM'), 'KS02')
+
+    INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+    VALUES ('B0204', '6', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 10:00 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 11:00 AM', 'YYYY-MM--DD HH:MI AM'), 'KS03')
+SELECT * FROM DUAL; 
+
+
+INSERT INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+VALUES ('B0206', '8', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 10:30 AM', 'YYYY-MM--DD HH:MI AM'), 2.5, TO_TIMESTAMP('2023-07-12 01:00 PM', 'YYYY-MM--DD HH:MI AM'), 'RBL1')
+
+INSERT INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+VALUES ('B0205', '7', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 10:00 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 11:00 AM', 'YYYY-MM--DD HH:MI AM'), 'CA1')
+
+INSERT INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+VALUES ('B0210', '12', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 11:30 AM', 'YYYY-MM--DD HH:MI AM'), 2, TO_TIMESTAMP('2023-07-12 01:30 PM', 'YYYY-MM--DD HH:MI AM'), 'RB3')
+
+INSERT INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+VALUES ('B0203', '5', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 09:30 AM', 'YYYY-MM--DD HH:MI AM'), 1, TO_TIMESTAMP('2023-07-12 10:30 AM', 'YYYY-MM--DD HH:MI AM'), 'SUP01')
+
+INSERT INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+VALUES ('B0208', '10', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 10:30 AM', 'YYYY-MM--DD HH:MI AM'), 2, TO_TIMESTAMP('2023-07-12 12:30 PM', 'YYYY-MM--DD HH:MI AM'), 'MB1')
+
+INSERT INTO RentalInformation (RentalReferenceNumber, CustomerID, DateOfRental, StartTime, NumberOfHoursBooked, EndTime, BoatNumber)
+VALUES ('B0201', '3', TO_DATE('2023-07-12', 'YYYY-MM--DD'), TO_TIMESTAMP('2023-07-12 09:00 AM', 'YYYY-MM--DD HH:MI AM'), 2, TO_TIMESTAMP('2023-07-12 11:00 AM', 'YYYY-MM--DD HH:MI AM'), 'RB1')
+
+
+--Inserting Into BoatInformation Table-- 
+
+--Assumptions when creating the Boats Information MB1 - MB5 have the same rental rate per hour -- 
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('MB1', 'Motorboat', 40, 1, 0, 1)
+
+-- Motorboats
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('MB2', 'Motorboat', 40, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('MB3', 'Motorboat', 40, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('MB4', 'Motorboat', 40, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('MB5', 'Motorboat', 40, 1, 1, 0);
+
+
+
+-- Small Rowing Boats
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RB1', 'SmallRowingBoat', 25, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RB2', 'SmallRowingBoat', 25, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RB3', 'SmallRowingBoat', 25, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RB4', 'SmallRowingBoat', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RB5', 'SmallRowingBoat', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RB6', 'SmallRowingBoat', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RB7', 'SmallRowingBoat', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RB8', 'SmallRowingBoat', 25, 1, 1, 0);
+
+
+
+-- Large Rowing Boats
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RBL1', 'LargeRowingBoats', 32, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RBL2', 'LargeRowingBoats', 32, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RBL3', 'LargeRowingBoats', 32, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('RBL4', 'LargeRowingBoats', 32, 1, 1, 0);
+
+
+-- Single Kayaks
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS01', 'SingleKayak', 20, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS02', 'SingleKayak', 20, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS03', 'SingleKayak', 20, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS04', 'SingleKayak', 20, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS05', 'SingleKayak', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS06', 'SingleKayak', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS07', 'SingleKayak', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS08', 'SingleKayak', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS09', 'SingleKayak', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KS10', 'SingleKayak', 20, 1, 1, 0);
+
+-- Double Kayaks
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD01', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD02', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD03', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD04', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD05', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD06', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD07', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD08', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD09', 'DoubleKayak', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('KD10', 'DoubleKayak', 25, 1, 1, 0);
+
+-- Canoes
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('CA1', 'Canoe', 25, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('CA2', 'Canoe', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('CA3', 'Canoe', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('CA4', 'Canoe', 25, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('CA5', 'Canoe', 25, 1, 1, 0);
+
+
+-- Stand Up Paddle Boards
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP01', 'StandUpPaddleBoard', 20, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP02', 'StandUpPaddleBoard', 20, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP03', 'StandUpPaddleBoard', 20, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP04', 'StandUpPaddleBoard', 20, 1, 0, 1);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP05', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP06', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP07', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP08', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP09', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP10', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP11', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP12', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP13', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP14', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+INSERT INTO BoatInformation (BoatNumber, BoatType, RentalRatePerHour, Quantity, Available, BookedInUse)
+VALUES ('SUP15', 'StandUpPaddleBoard', 20, 1, 1, 0);
+
+--Test Database through SQL Queries Beginner Queries 
+
+--Select All Rows From a Table
+
+SELECT * FROM BoatInformation;
+
+--Filter Available Boats 
+
+SELECT BoatNumber, BoatType FROM BoatInformation WHERE Available = 1;
+
+-- 3 Sort Boats by Rental Rate
+
+SELECT BoatNumber, BoatType, RentalRatePerHour FROM BoatInformation ORDER BY RentalRatePerHour DESC;
+
+-- 4 Calculate Average Rental Rate
+
+SELECT AVG(RentalRatePerHour) AS AverageRate FROM BoatInformation;
+
+--5 Calculate Average Duration
+
+SELECT AVG(NumberOfHoursBooked) AS AverageDuration FROM RentalInformation
+
+
+
+
+--Intermediate SQL Queries-- 
