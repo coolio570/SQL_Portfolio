@@ -1,16 +1,18 @@
-# SQL_Project_1
-
-# ISO 3166-1 Country Codes Dataset
+# SQL_Portfolio
 
 ## Overview
 
-Hello, and thank you for visiting! Within this repository, you'll find samples of SQL code that I've crafted for individual projects, as well as during my exploration of SQL, machine learning, and various data analytics courses. Highlighted below are some noteworthy projects, along with data visualizations crafted using Tableau. Feel free to explore, and don't hesitate to reach out with any feedback or questions you may have.
+Hello, and thank you for visiting! Within this repository, you'll find samples of SQL code that I've crafted for individual projects, as well as during my exploration of SQL, machine learning, and various data analytics courses. Highlighted below are some noteworthy projects. 
+Feel free to explore, and don't hesitate to reach out with any feedback or questions you may have.
+
+LakeBoatRentals
+
+This a project I was provided with 2 tables, Sample Bookings and Boats Inventory. I normalised these tables from 1NF to 3NF created 3 ERD Models Conceptual, Physical and Logical and created a database from these tables. I continued to test this database through several queries, easy to advanced to test the database. 
 
 
+Countries_Practice
 
-hjhjh
-
-1. This dataset provides information about country names along with their ISO 3166-1 alpha-2 and alpha-3 codes. The ISO 3166-1 standard is widely used for the representation of country names and their subdivisions. The dataset includes three sets of country codes:
+This dataset provides information about country names along with their ISO 3166-1 alpha-2 and alpha-3 codes. The ISO 3166-1 standard is widely used for the representation of country names and their subdivisions. The dataset includes three sets of country codes:
 
 **ISO 3166-1 alpha-2:** Two-letter country codes, widely used for Internet country code top-level domains.
 
