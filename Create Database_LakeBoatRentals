@@ -355,3 +355,24 @@ SELECT AVG(NumberOfHoursBooked) AS AverageDuration FROM RentalInformation
 
 
 --Intermediate SQL Queries-- 
+
+-- 6 Join Rental and Customer Information
+
+SELECT RentalInformation.RentalReferenceNumber, CustomerInformation.CustomerName
+FROM RentalInformation
+INNER JOIN CustomerInformation ON RentalInformation.CustomerID = CustomerInformation.CustomerID;
+
+--7 Display rental information with customer names
+SELECT RentalInformation.RentalReferenceNumber, RentalInformation.DateOfRental, CustomerInformation.CustomerName
+FROM RentalInformation
+INNER JOIN CustomerInformation ON RentalInformation.CustomerID = CustomerInformation.CustomerID;
+
+--Advanced SQL Queries
+
+--8 Show rented boats with customer names
+
+SELECT RentalInformation.RentalReferenceNumber, RentalInformation.BoatNumber, CustomerInformation.CustomerName
+FROM RentalInformation
+INNER JOIN BoatInformation ON RentalInformation.BoatNumber = BoatInformation.BoatNumber
+INNER JOIN CustomerInformation ON RentalInformation.CustomerID = CustomerInformation.CustomerID;
+
